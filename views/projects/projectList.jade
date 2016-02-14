@@ -1,0 +1,41 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu
+                        |列表
+                    .box-tool.pull-right 共有
+                            span.badge= docs.length
+                            | &nbsp;个项目
+                .box-body
+                    .row
+                        .col-xs-6
+                            .input-group
+                                input.form-control(placeholder='请输入……')
+                                span.input-group-btn
+                                    button.btn.btn-primary 搜索
+                        .col-xs-6.text-right
+                                a(href='/projects/addpp').btn.btn-sm.btn-danger 添加#{menu}
+                table.table.table-striped
+                    thead
+                        tr
+                            th 项目名称
+                            th 项目所在地
+                            th 项目期限
+                            th 项目负责人
+                            th 相关合同
+                            th 操作
+                    each obj in docs
+                        tr
+                            td
+                                a(href='/projects/updatapp?_id='+obj._id) #{obj.pname} 
+                            td= obj.parea
+                            td= obj.ptime
+                            td= obj.pperson
+                            td
+                                a(href='/contracts/selContractByProjectId?_id='+obj._id)
+                                    span.badge 查看
+                            td
+                                a(href='/projects/delp?_id='+obj._id) 删除

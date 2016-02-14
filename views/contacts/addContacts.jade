@@ -1,0 +1,56 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title #{menu}
+                .box-body
+                    form.form.form-horizontal(method='post' action=doc?'/contacts/updataContacts':'/contacts/addContacts')
+                        if doc
+                            input(type='hidden' name='_id' value=doc._id)
+                        .form-group
+                            label.control-label.col-xs-2 联系人：
+                            .col-xs-10
+                                input.form-control(name='conName' value=doc?doc.conName:'')
+                        .form-group
+                            label.control-label.col-xs-2 所属供应商：
+                            .col-xs-10
+                                 select(name='cSupplier').form-control
+                                        each obj in suppliers
+                                            if doc && doc.cSupplier == obj._id
+                                                option(value=obj._id selected)= obj.sname
+                                            else
+                                                option(value=obj._id )= obj.sname 
+                        .form-group
+                            label.control-label.col-xs-2 职位：
+                            .col-xs-10
+                                input.form-control(name='conPositon' value=doc?doc.conPositon:'')
+                        .form-group
+                            label.control-label.col-xs-2 手机：
+                            .col-xs-10
+                                input.form-control(name='conPhone' value=doc?doc.conPhone:'')
+                        .form-group
+                            label.control-label.col-xs-2 电话：
+                            .col-xs-10
+                                input.form-control(name='conTelphone' value=doc?doc.conTelphone:'')
+                        .form-group
+                            label.control-label.col-xs-2 QQ：
+                            .col-xs-10
+                                input.form-control(name='conQQ' value=doc?doc.conQQ:'')
+                        .form-group
+                            label.control-label.col-xs-2 Email：
+                            .col-xs-10
+                                input.form-control(name='conEmail' value=doc?doc.conEmail:'')
+                        .form-group
+                            label.control-label.col-xs-2 备注：
+                            .col-xs-10
+                                input.form-control(name='conOthers' value=doc?doc.conOthers:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                if doc
+                                    button(type='submit').btn.btn-primary 保存修改
+                                else
+                                    button(type='submit').btn.btn-primary 添加
+                                | 
+                                a(href='/contacts').btn.btn-primary 取消

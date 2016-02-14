@@ -1,0 +1,81 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu
+                .box-body
+                    form.form.form-horizontal(method='post' action=doc?'/contracts/updatac':'/contracts/addc')
+                        if doc
+                            input(type='hidden' name='_id' value=doc._id)
+                        .form-group
+                            label.control-label.col-xs-2  合同编号：
+                            .col-xs-10
+                                input.form-control(name='cid' value=doc?doc.cid:'')
+                        .form-group
+                            label.control-label.col-xs-2  合同名称：
+                            .col-xs-10
+                                input.form-control(name='cname' value=doc?doc.cname:'')
+                        .form-group
+                            label.control-label.col-xs-2 供应商：
+                            .col-xs-10
+                                select(name='cSupplier').form-control
+                                    each obj in suppliers
+                                        if doc && doc.cSupplier == obj._id
+                                            option(value=obj._id selected)= obj.sname
+                                        else
+                                            option(value=obj._id )= obj.sname
+                        .form-group
+                            label.control-label.col-xs-2 所属项目：
+                            .col-xs-10
+                                select(name='cPro').form-control
+                                    each obj in projects
+                                        if doc && doc.cPro == obj._id
+                                            option(value=obj._id selected)= obj.pname
+                                        else
+                                            option(value=obj._id )= obj.pname
+                        .form-group
+                            label.control-label.col-xs-2 合同内容：
+                            .col-xs-10
+                                input.form-control(name='ccontent' value=doc?doc.ccontent:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                .checkbox
+                                    label
+                                        if doc && doc.cIstickout
+                                            input(type='checkbox' name='cIstickout' checked)
+                                        else
+                                            input(type='checkbox' name='cIstickout')
+                                        | 是否开票
+                                    span &nbsp;&nbsp;&nbsp;&nbsp;
+                                    label
+                                        if doc && doc.cIscontainFlowM
+                                            input(type='checkbox' name='cIscontainFlowM' checked)
+                                        else
+                                            input(type='checkbox' name='cIscontainFlowM')
+                                        | 是否含运费
+                        .form-group
+                            label.control-label.col-xs-2 签订日期：
+                            .col-xs-10
+                                input.form-control(name='ctime' value=doc?doc.ctime:'')
+                        .form-group
+                            label.control-label.col-xs-2 收货人：
+                            .col-xs-10
+                                input.form-control(name='cPerson' value=doc?doc.cPerson:'')
+                        .form-group
+                            label.control-label.col-xs-2 联系方式：
+                            .col-xs-10
+                                input.form-control(name='cPhone' value=doc?doc.cPhone:'')
+                        .form-group
+                            label.control-label.col-xs-2 备注：
+                            .col-xs-10
+                                input.form-control(name='cOthers' value=doc?doc.cOthers:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                if doc
+                                    button(type='submit').btn.btn-primary 保存修改
+                                else
+                                    button(type='submit').btn.btn-primary 添加
+                                | 
+                                a(href='/contracts').btn.btn-primary 取消

@@ -1,0 +1,60 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu 
+                        |列表
+                    .box-tool.pull-right 共有
+                            span.badge= docs.length
+                            | &nbsp;个#{menu}
+                .box-body
+                    .row
+                        .col-xs-6
+                            .input-group
+                                input.form-control(placeholder='请输入……')
+                                span.input-group-btn
+                                    button.btn.btn-primary 搜索
+                        .col-xs-6.text-right
+                                a(href='/contracts/addContractP').btn.btn-sm.btn-danger 添加#{menu}
+                table.table.table-striped
+                    thead
+                        tr
+                            th 合同编号
+                            th 合同名称
+                            th 供应商
+                            th 所属项目
+                            th 合同内容
+                            th 签订日期
+                            th 收货人
+                            th 联系方式
+                            th 是否含运费
+                            th 是否开票
+                            th 备注
+                            th 操作
+                    each obj in docs
+                        tr
+                            td
+                                a(href='/contracts/updatacp?_id='+obj._id) #{obj.cid}
+                            td= obj.cname
+                                //- a(href='/contracts/updatacp?_id='+obj._id) #{obj.cname}
+                            td= obj.cSupplier.sname
+                            td= obj.cPro.pname
+                            td= obj.ccontent
+                            td= obj.ctime
+                            td= obj.cPerson
+                            td= obj.cPhone
+                            td
+                                if obj.cIscontainFlowM
+                                    含运费
+                                else
+                                    不含运费
+                            td
+                                if obj.cIstickout
+                                    开票
+                                else
+                                    不开票
+                            td= obj.cOthers
+                            td
+                                a(href='/contracts/delc?_id='+obj._id) 删除

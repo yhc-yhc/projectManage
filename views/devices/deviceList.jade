@@ -1,0 +1,49 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu 
+                        |列表
+                    .box-tool.pull-right 共有
+                            span.badge= docs.length
+                            | &nbsp;个#{menu}
+                .box-body
+                    .row
+                        .col-xs-6
+                            .input-group
+                                input.form-control(placeholder='请输入……')
+                                span.input-group-btn
+                                    button.btn.btn-primary 搜索
+                        .col-xs-6.text-right
+                                a(href='/devices/addDeviceP').btn.btn-sm.btn-danger 添加#{menu}
+                table.table.table-striped
+                    thead
+                        tr
+                            th 设备名称
+                            th 单价
+                            th 型号
+                            th 品牌
+                            th 参数
+                            th 单位
+                            th 货期
+                            th 供应商
+                            th 其它
+                            th 操作
+                    each obj in docs
+                        tr
+                            td
+                                a(href='/devices/updataDeviceP?_id='+obj._id) #{obj.dname}
+                            td= obj.dprice
+                            td= obj.dtype
+                            td= obj.dbrand
+                            td= obj.dparams
+                            td= obj.dafter
+                            td= obj.dprodceTime
+                            td= obj.dSupplier.sname
+                            td
+                                a(href='#')
+                                    span.badge  50%
+                            td
+                                a(href='/devices/del?_id='+obj._id) 删除

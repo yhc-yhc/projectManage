@@ -1,0 +1,187 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu
+                .box-body
+                    form.form.form-horizontal(method='post' action=doc?'/contracts/#1':'/contracts/doAddDevicesForContract')
+                        if doc
+                            input(type='hidden' name='_id' value=doc._id)
+                            input(type='hidden' name='devid' value=doc.d2cDid)
+                            //- span= doc
+                        .form-group
+                            label.control-label.col-xs-2  所属合同信息：
+                            .col-xs-10
+                                //- span= contracts
+                                select(name='d2cCid' onchange="changDevice();").form-control
+                                    each obj in contracts
+                                        if doc && doc.d2cCid == obj._id
+                                            option(value=obj._id selected dataM=obj.cSupplier._id)  合同编号：#{obj.cid} 
+                                                span  &nbsp;&nbsp;合同名称：#{obj.cname}
+                                                span  &nbsp;&nbsp;合同供应商：#{obj.cSupplier.sname}
+                                        else
+                                            option(value=obj._id  dataM=obj.cSupplier._id)  合同编号：#{obj.cid}
+                                                 span  &nbsp;&nbsp;合同名称：#{obj.cname}
+                                                 span  &nbsp;&nbsp;&nbsp;&nbsp;合同供应商：#{obj.cSupplier.sname}
+                        .form-group
+                            label.control-label.col-xs-2  设备名称：
+                            .col-xs-6
+                                select(name='d2cDid' onchange="setDeviceMsg();").form-control
+                                    if doc
+
+                            .col-xs-4.text-primary
+                                请确认此合同的供应商提供你将添加的设备！！
+                        .form-group
+                            label.control-label.col-xs-2 单价：
+                            .col-xs-2
+                                input.form-control(name='dprice' value=doc?doc.dprice:'' disabled)
+                            label.control-label.col-xs-2 单位：
+                            .col-xs-2
+                                input.form-control(name='dafter' value=doc?doc.dafter:'' disabled)
+                            label.control-label.col-xs-2 型号：
+                            .col-xs-2
+                                input.form-control(name='dtype' value=doc?doc.dtype:'' disabled)
+                        .form-group
+                            label.control-label.col-xs-2 品牌：
+                            .col-xs-2
+                                input.form-control(name='dbrand' value=doc?doc.dbrand:'' disabled)
+                            label.control-label.col-xs-2 参数：
+                            .col-xs-2
+                                input.form-control(name='dparams' value=doc?doc.dparams:'' disabled)
+                            label.control-label.col-xs-2 货期：
+                            .col-xs-2
+                                input.form-control(name='dprodceTime' value=doc?doc.dprodceTime:'' disabled)
+                        .form-group
+                            label.control-label.col-xs-2 数量：
+                            .col-xs-10
+                                input.form-control(name='d2cDnum' type='number' value=doc?doc.d2cDnum:'')
+                        .form-group
+                            label.control-label.col-xs-2 到货时间：
+                            .col-xs-10
+                                input.form-control(name='d2cDTime' value=doc?doc.d2cDTime:'')
+                        .form-group
+                            label.control-label.col-xs-2 物流跟踪：
+                            .col-xs-10
+                                input.form-control(name='d2cDflowInfo' value=doc?doc.d2cDflowInfo:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                if doc
+                                    button(type='submit').btn.btn-primary 保存修改
+                                else
+                                    button(type='submit').btn.btn-primary 添加
+                                | 
+                                a(href='/contracts/devices').btn.btn-primary 取消
+            if !doc
+                script.
+                    $(function(){
+                        changDevice();
+                    })
+                    var form = $('form.form')[0];
+                    var currutDevices = [];
+
+                    function changDevice(){
+                        var sel1 = form.d2cCid;
+                        var sel2 = form.d2cDid;
+                        var val = sel1.options[sel1.selectedIndex].getAttribute('dataM');
+                        console.log(val)
+                            //根据供应商id取到此供应商下的设备集合
+                        $.ajax({
+                            url:'/devices/selById?_id='+val,
+                            type:'get',
+                            success:function(datas){
+                                console.log(datas);
+                                currutDevices = datas;
+                                sel2.options.length=0;
+                                datas.forEach(function(obj){
+                                    sel2.options.add(new Option(obj.dname,obj._id))
+                                });
+                                setDeviceMsg();
+                            }
+                        })
+                    }
+                    function setDeviceMsg(){
+                        var sel2 = form.d2cDid;
+
+                        form.dprice.value    = '';
+                        form.dafter.value    = '';
+                        form.dtype.value     = '';
+                        form.dbrand.value    = '';
+                        form.dparams.value   = '';
+                        form.dprodceTime.value = '';
+                        if(currutDevices.length>0){
+                            var val = sel2.options[sel2.selectedIndex].value;
+                            console.log(val)
+                            currutDevices.forEach(function(obj){
+                                console.log(obj)
+                                if(obj._id ===val){
+                                    form.dprice.value    = obj.dprice||'';
+                                    form.dafter.value    = obj.dafter||'';
+                                    form.dtype.value     = obj.dtype||'';
+                                    form.dbrand.value    = obj.dbrand||'';
+                                    form.dparams.value   = obj.dparams||'';
+                                    form.dprodceTime.value = obj.dprodceTime||'';
+                                }
+                            })
+                        }
+                    }
+            else
+                script.
+                   $(function(){
+                        changDevice();
+                    })
+                    var form = $('form.form')[0];
+                    var currutDevices = [];
+
+                    function changDevice(){
+                        var sel1 = form.d2cCid;
+                        var sel2 = form.d2cDid;
+                        var val = sel1.options[sel1.selectedIndex].getAttribute('dataM');
+                            //根据供应商id取到此供应商下的设备集合
+                        $.ajax({
+                            url:'/devices/selById?_id='+val,
+                            type:'get',
+                            success:function(datas){
+                                console.log(datas);
+                                currutDevices = datas;
+                                sel2.options.length=0;
+                                datas.forEach(function(obj){
+                                    sel2.options.add(new Option(obj.dname,obj._id))
+                                });
+                                //此处需要先将设备下拉框设置值
+                                var val = form.devid.value;
+                                console.log(val)
+                                for(var i=0; i<sel2.options.length; i++){  
+                                    if(sel2.options[i].value == val){  
+                                        sel2.options[i].selected = true;  
+                                        break;  
+                                    }  
+                                }
+                                setDeviceMsg();
+                            }
+                        })
+                    }
+                    function setDeviceMsg(){
+                        var sel2 = form.d2cDid;
+                        form.dprice.value    = '';
+                        form.dafter.value    = '';
+                        form.dtype.value     = '';
+                        form.dbrand.value    = '';
+                        form.dparams.value   = '';
+                        form.dprodceTime.value = '';
+                        if(currutDevices.length>0){
+                            var val = sel2.options[sel2.selectedIndex].value;
+                            console.log(val)
+                            currutDevices.forEach(function(obj){
+                                if(obj._id ===val){
+                                    form.dprice.value    = obj.dprice||'';
+                                    form.dafter.value    = obj.dafter||'';
+                                    form.dtype.value     = obj.dtype||'';
+                                    form.dbrand.value    = obj.dbrand||'';
+                                    form.dparams.value   = obj.dparams||'';
+                                    form.dprodceTime.value = obj.dprodceTime||'';
+                                }
+                            })
+                        }
+                    } 

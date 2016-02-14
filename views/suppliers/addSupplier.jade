@@ -1,0 +1,35 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title #{menu}
+                .box-body
+                    form.form.form-horizontal(method='post' action=doc?'/suppliers/updataSupplier':'/suppliers/addSuppliers')
+                        if doc
+                            input(type='hidden' name='_id' value=doc._id)
+                        .form-group
+                            label.control-label.col-xs-2  供应商名称：
+                            .col-xs-10
+                                input.form-control(name='sname' value=doc?doc.sname:'')
+                        .form-group
+                            label.control-label.col-xs-2 地址：
+                            .col-xs-10
+                                input.form-control(name='saddress' value=doc?doc.saddress:'')
+                        .form-group
+                            label.control-label.col-xs-2 类型：
+                            .col-xs-10
+                                input.form-control(name='stype' value=doc?doc.stype:'')
+                        .form-group
+                            label.control-label.col-xs-2 备注：
+                            .col-xs-10
+                                input.form-control(name='sOthers' value=doc?doc.sOthers:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                if doc
+                                    button(type='submit').btn.btn-primary 保存修改
+                                else
+                                    button(type='submit').btn.btn-primary 添加
+                                | 
+                                a(href='/suppliers').btn.btn-primary 取消

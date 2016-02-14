@@ -1,0 +1,74 @@
+extends layout
+block content
+    .row
+        .col-xs-12
+            .row
+                .col-xs-6
+                    .box.box-solid
+                        .box-header.with-border
+                            h5.box-title 项目
+                            .box-tools.pull-right
+                                span.label.label-danger ?
+                                |个项目
+                        .box-body
+                            a(href='/projects').btn.btn-app
+                                i.fa.fa-users
+                                |项目列表
+                            a(href='/projects/addpp').btn.btn-app
+                                i.fa.fa-user
+                                |添加项目
+                            //- ul.row.text-info.main-statistics
+                            //-     .col-xs-6
+                            //-         li 
+                            //-             i.fa.fa-fw.fa-user
+                            //-             | 1
+                            //-         li 2
+                            //-         li 3
+                            //-         li 4
+                .col-xs-6
+                    .box.box-solid
+                        .box-header.with-border
+                            h5.box-title 供应商
+                            .box-tools.pull-right
+                                span.label.label-danger ?
+                                |个供应商
+                        .box-body
+                            a(href='/suppliers').btn.btn-app
+                                i.fa.fa-users
+                                |供应商列表
+                            a(href='/suppliers/addSupplierP').btn.btn-app
+                                i.fa.fa-user
+                                |添加供应商
+    .row
+        .col-xs-12
+            .row
+                .col-xs-6
+                    .box.box-solid
+                        .box-header.with-border
+                            h5.box-title 合同
+                            .box-tools.pull-right
+                                span.label.label-danger ?
+                                |个合同
+                        .box-body
+                            a(href='/contracts').btn.btn-app
+                                i.fa.fa-users
+                                |合同列表
+                            a(href='/contracts/addContractP').btn.btn-app
+                                i.fa.fa-user
+                                |添加合同
+                .col-xs-6
+                    .box.box-solid
+                        .box-header.with-border
+                            h5.box-title 设备
+                            .box-tools.pull-right
+                                span.label.label-danger ?
+                                |种设备
+                        .box-body
+                            a(href='/devices').btn.btn-app
+                                i.fa.fa-users
+                                |设备列表
+                            a(href='/devices/addDeviceP').btn.btn-app
+                                i.fa.fa-user
+                                |添加设备
+
+

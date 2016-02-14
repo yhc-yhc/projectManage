@@ -1,0 +1,193 @@
+doctype html
+html(lang='en')
+    head
+        title= title
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no')
+        link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/font-awesome/font-awesome.min.css')
+        link(rel='stylesheet', href='/stylesheets/AdminLTE.min.css')
+        link(rel='stylesheet', href='/stylesheets/skin-blue.min.css')
+        script(src='/javascripts/jquery-1.10.2.min.js')
+    body.skin-blue
+        .wrapper
+            header.main-header
+                a(href='#').logo
+                    b 东方世纪
+                    //-|UI  
+                    //-  |表示连接上一行
+                nav.navbar.navbar-static-top
+                    a(href='#' data-toggle='offcanvas').sidebar-toggle
+                    .navbar-custom-menu
+                        ul.nav.navbar-nav
+                            li.dropdown.notifications-menu
+                                a(href='#' data-toggle='dropdown').dropdown-toggle
+                                    i.fa.fa-bell-o
+                                    span.label.label-warning 5
+                                ul.dropdown-menu
+                                    li.header 您有10条提醒
+                                    li
+                                        ul.menu
+                                            li
+                                                a(href='#')
+                                                    i.fa.fa-users.text-aqua
+                                                    | 新增
+                                                    span.text-red 5
+                                                    | 位注册用户
+                                            li
+                                                a(href='#')
+                                                    i.fa.fa-envelope.text-red
+                                                    | 新增
+                                                    span.text-red 5
+                                                    | 位用户给您留言啦！
+                                    li.footer
+                                        a(href='#') view all
+                            li.dropdown.user.user-menu
+                                a(href='#' data-toggle='dropdown').dropdown-toggle
+                                    img(src='/favicon.ico').user-image
+                                    span.hidden-xs 登录用户名
+                                ul.dropdown-menu
+                                    li.user-header
+                                        img(src="/favicon.ico").img-circle
+                                    li.user-footer
+                                        .pull-right
+                                            a(href='/logout').btn.btn-default.btn-flat 退出
+            aside.main-sidebar
+                section.sidebar
+                    form(action='' method='').sidebar-form
+                        .input-group
+                            input(type='text' placeholder='Search..' value='').form-control
+                            span.input-group-btn
+                                button(type='button').btn.btn-flat
+                                    i.fa.fa-search
+                    ul.sidebar-menu
+                        li.header  main menu
+                        input(type='hidden' id="currentCate" value="aa")
+                        li(cid='sysTemManage').treeview.active
+                            a(href='#')
+                                span 项目管理
+                                i.fa.fa-angle-left.pull-right
+                            ul.treeview-menu
+                                //- li(cid='sysTemManage_user')
+                                //-     a(href='/projects')
+                                //-         i.fa.fa-user
+                                //-         |用户管理
+                                //- li(cid='sysTemManage_uGroup')
+                                //-     a(href='#') 
+                                //-         i.fa.fa-group
+                                //-         |用户组设定
+                                li(cid='sysTemManage_ads')
+                                    a(href='/projects')
+                                        i.fa.fa-camera-retro
+                                        |项目列表
+                                li(cid='sysTemManage_files')
+                                    a(href='/contracts') 
+                                        i.fa.fa-copy
+                                        |合同列表
+                                li(cid='sysTemManage_files')
+                                    a(href='/suppliers') 
+                                        i.fa.fa-users
+                                        |供应商列表
+                                li(cid='sysTemManage_files')
+                                    a(href='/contacts') 
+                                        i.fa.fa-users
+                                        |联系人列表
+                                li(cid='sysTemManage_files')
+                                    a(href='/devices') 
+                                        i.fa.fa-file-text
+                                        |供应商设备列表
+                                li(cid='sysTemManage_files')
+                                    a(href='/contracts/devices') 
+                                        i.fa.fa-file-text
+                                        |合同设备列表
+                                li(cid='sysTemManage_user')
+                                    a(href='/doing')
+                                        i.fa.fa-users
+                                        |库存列表
+                                li(cid='sysTemManage_logs')
+                                    a(href='/doing')
+                                        i.fa.fa-fw.fa-clipboard
+                                        |付款列表
+                        li(cid='contentManage').treeview
+                            a(href='#')
+                                span 用户管理
+                                i.fa.fa-angle-left.pull-right
+                            ul.treeview-menu
+                                //- li(cid='contentManage_content')
+                                //-     a(href='#')
+                                //-         i.fa.fa-file-text-o
+                                //-         |文档管理
+                                //- li(cid='contentManage_cateGory')
+                                //-     a(href='#')
+                                //-         i.fa.fa-clipboard
+                                //-         |文档类别管理
+                                //- li(cid='contentManage_tag')
+                                //-     a(href='#')
+                                //-         i.fa.fa-tags
+                                //-         |文档标签管理
+                                //- li(cid='contentManage_temp')
+                                //-     a(href='#')
+                                //-         i.fa.fa-dashboard
+                                //-         |文档模板配置
+                                //- li(cid='contentManage_msg')
+                                //-     a(href='#')
+                                //-         i.fa.fa-comments
+                                //-         | 留言管理
+                                //- li(cid='contentManage_notice')
+                                //-     a(href='#')
+                                //-         i.fa.fa-bullhorn
+                                //-         |消息管理
+                                //-         i.fa.fa-angle-left.pull-right
+                                //-     ul.treeview-menu
+                                //-         li(cid='contentManage_notice_1')
+                                //-             a(href='#')
+                                //-                 i.fa.fa-volume-up
+                                //-                 |公告管理
+                                //-     ul.treeview-menu.hide
+                                //-         li(cid='contentManage_notice_2')
+                                //-             a(href='#')
+                                //-                 i.fa.fa-male
+                                //-                 |用户消息
+                                //-     ul.treeview-menu
+                                //-         li(cid='contentManage_notice_3')
+                                //-             a(href='#')
+                                //-                 i.fa.fa-bell-o
+                                //-                 |系统消息
+                                li(cid='sysTemManage_user')
+                                    a(href='/suppliers')
+                                        i.fa.fa-users
+                                        |供应商管理
+                        li(cid='userManage').treeview
+                            a(href='#')
+                                span 权限管理
+                                i.fa.fa-angle-left.pull-right
+                            ul.treeview-menu
+                                li(cid='sysTemManage_user')
+                                    a(href='/devices')
+                                        i.fa.fa-users
+                                        |设备管理
+                        li(cid='userManage').treeview
+                            a(href='#')
+                                span 其它
+                                i.fa.fa-angle-left.pull-right
+                            ul.treeview-menu
+                                li(cid='sysTemManage_user')
+                                    a(href='#')
+                                        i.fa.fa-users
+                                        |库存设备管理
+            .content-wrapper
+                section.content-header
+                    h1= title
+                        small 欢迎使用！
+                    ol.breadcrumb
+                        li.active
+                            a(href='/')
+                                i.fa.fa-home
+                                |首页
+                section.content
+                    block content
+            footer.main-footer
+                strong Copyright &copy; 2015 
+                    a(href='#') 东方世纪 v1.0.1
+    script(src='/javascripts/bootstrap.min.js')
+    script(src='/javascripts/app.min.js')

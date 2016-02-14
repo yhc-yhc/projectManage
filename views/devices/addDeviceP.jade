@@ -1,0 +1,59 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu
+                .box-body
+                    form.form.form-horizontal(method='post' action=doc?'/devices/updataDevice':'/devices/addDevice')
+                        if doc
+                            input(type='hidden' name='_id' value=doc._id)
+                        .form-group
+                            label.control-label.col-xs-2  设备名称：
+                            .col-xs-10
+                                input.form-control(name='dname' value=doc?doc.dname:'')
+                        .form-group
+                            label.control-label.col-xs-2 供应商：
+                            .col-xs-10
+                                select(name='dSupplier').form-control
+                                    each obj in suppliers
+                                        if doc && doc.dSupplier == obj._id
+                                            option(value=obj._id selected)= obj.sname
+                                        else
+                                            option(value=obj._id )= obj.sname
+                        .form-group
+                            label.control-label.col-xs-2 单价：
+                            .col-xs-10
+                                input.form-control(name='dprice' type='number' value=doc?doc.dprice:'')
+                        .form-group
+                            label.control-label.col-xs-2 单位：
+                            .col-xs-10
+                                input.form-control(name='dafter' value=doc?doc.dafter:'')
+                        .form-group
+                            label.control-label.col-xs-2 型号：
+                            .col-xs-10
+                                input.form-control(name='dtype' value=doc?doc.dtype:'')
+                        .form-group
+                            label.control-label.col-xs-2 品牌：
+                            .col-xs-10
+                                input.form-control(name='dbrand' value=doc?doc.dbrand:'')
+                        .form-group
+                            label.control-label.col-xs-2 参数：
+                            .col-xs-10
+                                textarea.form-control(row='3' name='dparams')
+                                    if doc
+                                        !{doc.dparams}
+                                //- input.form-control(name='dparams' value=doc?doc.dparams:'')
+                        .form-group
+                            label.control-label.col-xs-2 货期：
+                            .col-xs-10
+                                input.form-control(name='dprodceTime' value=doc?doc.dprodceTime:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                if doc
+                                    button(type='submit').btn.btn-primary 保存修改
+                                else
+                                    button(type='submit').btn.btn-primary 添加
+                                | 
+                                a(href='/devices').btn.btn-primary 取消

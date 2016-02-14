@@ -1,0 +1,42 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu 
+                        |列表
+                    .box-tool.pull-right 共有
+                            span.badge= docs.length
+                            | &nbsp;个#{menu}
+                .box-body
+                    .row
+                        .col-xs-6
+                            .input-group
+                                input.form-control(placeholder='请输入……')
+                                span.input-group-btn
+                                    button.btn.btn-primary 搜索
+                        .col-xs-6.text-right
+                                a(href='/suppliers/addSupplierP').btn.btn-sm.btn-danger 添加#{menu}
+                        span= doc
+                table.table.table-striped
+                    thead
+                        tr
+                            th 供应商名称
+                            th 地址
+                            th 类型
+                            th 备注
+                            th 联系人
+                            th 操作
+                    each obj in docs
+                        tr
+                            td
+                                a(href='/suppliers/updataSupplierP?_id='+obj._id) #{obj.sname}
+                            td= obj.saddress
+                            td= obj.stype
+                            td= obj.sOthers
+                            td
+                                a(href='#')
+                                    span.badge  查看
+                            td
+                                //- a(href='/suppliers/delSupplier?_id='+obj._id) 删除

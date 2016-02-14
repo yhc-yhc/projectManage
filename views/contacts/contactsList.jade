@@ -1,0 +1,45 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu 
+                        |列表
+                    .box-tool.pull-right 共有
+                            span.badge= docs.length
+                            | &nbsp;个#{menu}
+                .box-body
+                    .row
+                        .col-xs-6
+                            .input-group
+                                input.form-control(placeholder='请输入……')
+                                span.input-group-btn
+                                    button.btn.btn-primary 搜索
+                        .col-xs-6.text-right
+                                a(href='/contacts/addContactsP').btn.btn-sm.btn-danger 添加#{menu}
+                table.table.table-striped
+                    thead
+                        tr
+                            th 联系人名字
+                            th 所属供应商
+                            th 职位
+                            th 手机
+                            th 电话
+                            th QQ
+                            th Email
+                            th 备注
+                            th 操作
+                    each obj in docs
+                        tr
+                            td
+                                a(href='/contacts/updatacontactsP?_id='+obj._id) #{obj.conName}
+                            td= obj.cSupplier.sname
+                            td= obj.conPositon
+                            td= obj.conPhone
+                            td= obj.conTelphone
+                            td= obj.conQQ
+                            td= obj.conEmail
+                            td= obj.conOthers
+                            td
+                                a(href='/contacts/del?_id='+obj._id) 删除

@@ -1,0 +1,35 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title #{menu}
+                .box-body
+                    form.form.form-horizontal(method='post' action=doc?'/projects/updatap':'/projects/addp')
+                        if doc
+                            input(type='hidden' name='_id' value=doc._id)
+                        .form-group
+                            label.control-label.col-xs-2  项目名称：
+                            .col-xs-10
+                                input.form-control(name='pname' value=doc?doc.pname:'')
+                        .form-group
+                            label.control-label.col-xs-2 项目期限：
+                            .col-xs-10
+                                input.form-control(name='ptime' value=doc?doc.ptime:'')
+                        .form-group
+                            label.control-label.col-xs-2 地区：
+                            .col-xs-10
+                                input.form-control(name='parea' value=doc?doc.parea:'')
+                        .form-group
+                            label.control-label.col-xs-2 项目负责人：
+                            .col-xs-10
+                                input.form-control(name='pperson' value=doc?doc.pperson:'')
+                        .form-group
+                            .col-xs-offset-2.col-xs-10
+                                if doc
+                                    button(type='submit').btn.btn-primary 保存修改
+                                else
+                                    button(type='submit').btn.btn-primary 添加
+                                | 
+                                a(href='/projects').btn.btn-primary 取消

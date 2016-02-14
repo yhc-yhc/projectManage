@@ -1,0 +1,46 @@
+extends ../layout
+block content
+    .row
+        .col-xs-12
+            .box
+                .box-header.with-border
+                    h5.box-title= menu
+                        |列表
+                    .box-tool.pull-right 共有
+                        span.badge= docs.length
+                        | &nbsp;个#{menu}
+                .box-body
+                    .row
+                        .col-xs-6
+                            .input-group
+                                input.form-control(placeholder='请输入……')
+                                span.input-group-btn
+                                    button.btn.btn-primary 搜索
+                        .col-xs-6.text-right
+                                a(href='/contracts/addDevicesForContract').btn.btn-sm.btn-danger 添加#{menu}
+                table.table.table-striped
+                    thead
+                        //- span= docs
+                        tr
+                            th 合同编号
+                            th 合同名称
+                            th 设备名称
+                            th 单价
+                            //- th 所属项目
+                            th 数量
+                            th 到货时间
+                            th 物流信息
+                            th 操作
+                    each obj in docs
+                        tr
+                            td
+                                a(href='/contracts/updataDevicesForContract?_id='+obj._id) #{obj.d2cCid._id}
+                            td=obj.d2cCid.cname
+                            td= obj.d2cDid.dname
+                            td= obj.d2cDid.dprice
+                            //- td= obj.d2cCid.cPro
+                            td= obj.d2cDnum
+                            td= obj.d2cDTime
+                            td= obj.d2cDflowInfo
+                            td
+                                a(href='/contracts/deld2c?_id='+obj._id) 删除
