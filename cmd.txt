@@ -1,20 +1,41 @@
+cd C:\mongodb-win32-x86_64-2008plus-3.0.9\bin
+
+mongod  --port 22222  --replSet repset
 
 
-cd C:\Program Files\MongoDB\Server\3.3\bin
 
-mongod --dbpath=c:\data\db --port 22222                --replSet 192.168.0.106:33333
+cd d:\mongodb-win32-x86_64-2008plus-3.0.9\bin
 
-cd E:\nodeWorks\learn\m-e-n\myapp supervisor bin\www
-
-
-db.runCommand({"replSetInitiate":{ "id":"zjl","members":[{ "_id":1, "host":"192.168.0.105:22222"},{ "_id":2, "host":"192.168.40.130:22222" }]}})
+mongod  --port 33333  --replSet repset
 
 
-config = { _id:"replset", members:[{_id:0,host:"192.168.1.136:27017"}, {_id:1,host:"192.168.1.137:27017"},{_id:2,host:"192.168.1.138:27017"}]}
 
+cd e:\mongodb-win32-x86_64-2008plus-3.0.9\bin
+
+mongod  --port 44444  --replSet repset
+
+
+在三台机器上任意一台机器登陆mongodb
+
+cd C:\mongodb-win32-x86_64-2008plus-3.0.9\bin
+
+mongo  --port 22222
+
+#使用admin数据库
+use admin
+
+
+#定义副本集配置变量，这里的 _id:”repset” 和上面命令参数“ –replSet repset” 要保持一样。
+config = { _id:"repset", members:[{_id:0,host:"127.0.0.1:22222"}, {_id:1,host:"127.0.0.1:33333"},{_id:2,host:"127.0.0.1:44444"}]}
 rs.initiate(config);
 
+#查看集群节点的状态
  rs.status();
 
-#mongodbĬ���Ǵ����ڵ��д���ݵģ������ڵ��ϲ�����������Ҫ���ø����ڵ���Զ���
-replset:SECONDARY> db.getMongo().setSlaveOk();
+#mongodb默认是从主节点读写数据的，副本节点上不允许读，需要设置副本节点可以读。
+从副本节点上连接到数据库
+repset:SECONDARY> db.getMongo().setSlaveOk();
+
+cd E:\nodeWorks\learn\m-e-n\myapp 
+
+supervisor bin\www
