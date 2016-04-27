@@ -39,3 +39,6 @@ repset:SECONDARY> db.getMongo().setSlaveOk();
 cd E:\nodeWorks\learn\m-e-n\myapp 
 
 supervisor bin\www
+
+=============================================================
+16/04/28 pull the project to ubuntu os.
